@@ -3,16 +3,18 @@ defmodule CveSync do
   Documentation for CveSync.
   """
 
-  @doc """
-  Hello world.
+  use Tesla
 
-  ## Examples
+  plug Tesla.Middleware.BaseUrl, "https://nvd.nist.gov/feeds/json/cve/1.0/"
 
-      iex> CveSync.hello()
-      :world
+  def fetch(filename) do
+    {:ok, env} = get(filename)
+    %Tesla.Env{body: body, status: 200} = env
+    body
+  end
 
-  """
-  def hello do
-    :world
+  def fetch_json(filename) do
+    [fetch(filename)]
+    |> StreamGzip.gunzip()
   end
 end
