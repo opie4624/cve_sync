@@ -17,4 +17,13 @@ defmodule CveSync do
     [fetch(filename)]
     |> StreamGzip.gunzip()
   end
+
+  def parse_cve(%{"configurations" => %{"CVE_data_version" => "4.0"},
+      "cve" => cve}) do
+    %{
+      "CVE_data_meta" =>
+      %{"ASSIGNER" => assigner, "ID" => cve_num},
+    } = cve
+    {assigner, cve_num}
+  end
 end
