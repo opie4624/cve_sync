@@ -18,12 +18,17 @@ defmodule CveSync do
     |> StreamGzip.gunzip()
   end
 
-  def parse_cve(%{"configurations" => %{"CVE_data_version" => "4.0"},
-      "cve" => cve}) do
+  def parse_cve(%{
+        "configurations" => %{"CVE_data_version" => "4.0"},
+        "cve" => cve,
+        "impact" => impact,
+        "lastModifiedDate" => last_modified_date,
+        "publishedDate" => published_date
+      }) do
     %{
-      "CVE_data_meta" =>
-      %{"ASSIGNER" => assigner, "ID" => cve_num},
+      "CVE_data_meta" => %{"ASSIGNER" => assigner, "ID" => cve_num}
     } = cve
+
     {assigner, cve_num}
   end
 end
