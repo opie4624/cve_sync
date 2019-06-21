@@ -5,7 +5,7 @@ defmodule CveSync do
 
   use Tesla
 
-  plug Tesla.Middleware.BaseUrl, "https://nvd.nist.gov/feeds/json/cve/1.0/"
+  plug(Tesla.Middleware.BaseUrl, "https://nvd.nist.gov/feeds/json/cve/1.0/")
 
   def fetch(filename) do
     {:ok, env} = get(filename)
