@@ -19,9 +19,12 @@ defmodule CveSync do
   end
 
   def parse_cve(cve = %{"configurations" => %{"CVE_data_version" => "4.0"}}) do
-    assigner = cve["cve"]["CVE_data_meta"]["ASSIGNER"]
-    cve_number = cve["cve"]["CVE_data_meta"]["ID"]
-
-    {assigner, cve_number}
+    %{id: cve["cve"]["CVE_data_meta"]["ID"],
+      assigner: cve["cve"]["CVE_data_meta"]["ASSIGNER"],
+      affected: cve["cve"]["affects"]["vendor"]["vendor_data"],
+      description: nil, #TODO Filter out English language desc
+      last_modified_date: cve["lastModifiedDate"],
+      published_date: cve["publishedDate"]
+     }
   end
 end
