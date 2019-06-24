@@ -26,13 +26,12 @@ defmodule CveSync.Db.Cve do
         description: description,
         last_modified_date: last_modified_date,
         published_date: published_date
-      }) do
-    %Cve{
-      id: id,
-      assigner: assigner,
-      description: description,
-      last_modified_date: last_modified_date,
-      published_date: published_date
-    }
-  end
+      }),
+      do: %Cve{
+        id: id,
+        assigner: assigner,
+        description: description,
+        last_modified_date: last_modified_date,
+        published_date: published_date
+      }
 end
