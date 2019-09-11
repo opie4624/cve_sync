@@ -5,9 +5,7 @@ defmodule CveSync.Db.Cve do
   alias __MODULE__
 
   def insert(cve = %Cve{}) do
-    Memento.transaction(fn ->
-      Memento.Query.write(cve)
-    end)
+    Memento.transaction(fn -> insert!(cve) end)
   end
 
   def insert(cve) when is_list(cve) do
