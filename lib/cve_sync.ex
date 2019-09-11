@@ -3,30 +3,33 @@ defmodule CveSync do
   Documentation for CveSync.
   """
 
-  use Tesla
+  alias CveSync.{Downloader, Parser}
 
-  plug(Tesla.Middleware.BaseUrl, "https://nvd.nist.gov/feeds/json/cve/1.0/")
-
-  def fetch(filename) do
-    {:ok, env} = get(filename)
-    %Tesla.Env{body: body, status: 200} = env
-    body
+  def seed_database do
+    get_current_year()
+    |> create_year_range()
+    |> create_filename_list()
+    |> fetch_filenames()
+    |> parse_cves()
+    |> insert_into_db()
   end
 
-  def fetch_json(filename) do
-    [fetch(filename)]
-    |> StreamGzip.gunzip()
+  defp get_current_year do
+    today =
+      DateTime.utc_now()
+      |> DateTime.to_date()
+
+    today.year
   end
 
-  def parse_cve(cve = %{"configurations" => %{"CVE_data_version" => "4.0"}}) do
-    %{
-      id: cve["cve"]["CVE_data_meta"]["ID"],
-      assigner: cve["cve"]["CVE_data_meta"]["ASSIGNER"],
-      affected: cve["cve"]["affects"]["vendor"]["vendor_data"],
-      # TODO Filter out English language desc
-      description: nil,
-      last_modified_date: cve["lastModifiedDate"],
-      published_date: cve["publishedDate"]
-    }
-  end
+  defp create_year_range(this_year), do: 2002..this_year
+
+  defp create_filename_list(years),
+    do: Enum.map(years, fn x -> "nvdcve-1.1-" <> to_string(x) <> ".json.gz" end)
+
+  defp fetch_filenames(filenames), do: Enum.map(filenames, &Downloader.fetch(&1))
+
+  defp parse_cves(x), do: x
+
+  defp insert_into_db(x), do: x
 end
