@@ -23,9 +23,10 @@ defmodule CveSync.MixProject do
     [
       {:memento, "~> 0.3.1"},
       {:stream_gzip, "~> 0.4.0"},
-      {:jaxon, "~> 1.0"},
-      {:hackney, "~> 1.15"},
-      {:tesla, "~> 1.2"},
+      {:jaxon, "~> 1.0.10"},
+      {:mint, "~> 0.4.0"},
+      {:castore, "~> 0.1.0"},
+      {:tesla, "~> 1.3.0"}
     ]
   end
 end

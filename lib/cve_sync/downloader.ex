@@ -7,7 +7,7 @@ defmodule CveSync.Downloader do
     {:ok, env} = get(filename)
     %Tesla.Env{body: body, status: 200} = env
 
-    [body]
+    body
     |> StreamGzip.gunzip()
   end
 end
