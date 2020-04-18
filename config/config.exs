@@ -22,6 +22,7 @@ use Mix.Config
 #
 
 config :tesla, adapter: Tesla.Adapter.Mint
+config :tesla, Tesla.Adapter.Mint, body_as: :stream
 config :mnesia, dir: '.mnesia/#{Mix.env()}/#{node()}'
 
 # It is also possible to import configuration files, relative to this

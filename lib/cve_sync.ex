@@ -10,7 +10,7 @@ defmodule CveSync do
     |> create_year_range()
     |> create_filename_list()
     |> fetch_filenames()
-    # |> parse_cves()
+    |> parse_cves()
     |> insert_into_db()
   end
 
@@ -33,14 +33,13 @@ defmodule CveSync do
     do:
       download_streams
       |> Enum.map(&extract_cve_lists(&1))
-      |> reduce_to_one_list()
+      |> Enum.concat()
 
   defp insert_into_db(x), do: x
 
   defp extract_cve_lists(stream),
     do:
       stream
+      |> Jaxon.Stream.from_enumerable()
       |> Jaxon.Stream.query([:root, "CVE_Items", :all])
-
-  defp reduce_to_one_list(x), do: x
 end
