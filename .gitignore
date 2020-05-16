@@ -22,3 +22,5 @@ erl_crash.dump
 # Ignore package tarball (built via "mix hex.build").
 cve_sync-*.tar
 
+# Ignore sample json files
+nvdcve*
