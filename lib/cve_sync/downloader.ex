@@ -15,7 +15,7 @@ defmodule CveSync.Downloader do
         StreamGzip.gunzip([body])
 
       _error ->
-        :error
+        {:error, filename}
     end
   end
 end
