@@ -19,6 +19,20 @@ defmodule CveSync.Db.Cve do
     Memento.Query.write(cve)
   end
 
+  def get(cves) when is_list(cves) do
+    Memento.transaction(fn ->
+      Enum.map(cves, &read!(&1))
+    end)
+  end
+
+  def get(cve_id) do
+    Memento.transaction(fn ->
+      read!(cve_id)
+    end)
+  end
+
+  def read!(id), do: Memento.Query.read(__MODULE__, id)
+
   def cast(%{
         id: id,
         assigner: assigner,
