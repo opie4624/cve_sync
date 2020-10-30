@@ -34,6 +34,7 @@ defmodule CveSync do
       download_streams
       |> Enum.map(&extract_cve_lists(&1))
       |> Enum.concat()
+      |> Enum.map(&Parser.parse_cve(&1))
 
   defp insert_into_db(x), do: x
 
