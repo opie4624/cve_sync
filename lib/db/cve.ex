@@ -10,7 +10,8 @@ defmodule CveSync.Db.Cve do
 
   def insert(cve) when is_list(cve) do
     Memento.transaction(fn ->
-      Enum.map(cve, &insert!(&1))
+      Enum.map(cve, &cast(&1))
+      |> Enum.map(&insert!(&1))
     end)
   end
 
