@@ -36,7 +36,7 @@ defmodule CveSync do
       |> Enum.concat()
       |> Enum.map(&Parser.parse_cve(&1))
 
-  defp insert_into_db(x), do: x
+  defp insert_into_db(cves), do: CveSync.Db.Cve.insert(cves)
 
   defp extract_cve_lists(stream),
     do:
