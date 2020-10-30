@@ -43,4 +43,7 @@ defmodule CveSync do
       stream
       |> Jaxon.Stream.from_enumerable()
       |> Jaxon.Stream.query([:root, "CVE_Items", :all])
+
+  def start(_), do: start()
+  def start(), do: Memento.Table.create(CveSync.Db.Cve)
 end
