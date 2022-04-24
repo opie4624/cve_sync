@@ -26,7 +26,8 @@ defmodule CveSync.MixProject do
       {:jaxon, "~> 2.0.0-alpha"},
       {:mint, "~> 1.0"},
       {:castore, "~> 0.1.0"},
-      {:tesla, "~> 1.3"}
+      {:tesla, "~> 1.3"},
+      {:dialyxir, "~> 1.1", only: :dev, runtime: false}
     ]
   end
 end
