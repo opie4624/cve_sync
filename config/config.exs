@@ -1,6 +1,6 @@
 # This file is responsible for configuring your application
 # and its dependencies with the aid of the Mix.Config module.
-use Mix.Config
+import Config
 
 # This configuration is loaded before any dependency and is restricted
 # to this project. If another project depends on this project, this
@@ -21,9 +21,11 @@ use Mix.Config
 #     config :logger, level: :info
 #
 
+config :cve_sync, env: config_env()
+
 config :tesla, adapter: Tesla.Adapter.Mint
 config :tesla, Tesla.Adapter.Mint, body_as: :stream
-config :mnesia, dir: '.mnesia/#{Mix.env()}/#{node()}'
+config :mnesia, dir: '.mnesia/#{config_env()}/#{node()}'
 
 # It is also possible to import configuration files, relative to this
 # directory. For example, you can emulate configuration per environment
@@ -31,4 +33,4 @@ config :mnesia, dir: '.mnesia/#{Mix.env()}/#{node()}'
 # Configuration from the imported file will override the ones defined
 # here (which is why it is important to import them last).
 #
-#     import_config "#{Mix.env()}.exs"
+#     import_config "#{config_env()}.exs"
