@@ -32,6 +32,7 @@ defmodule CveSync do
   defp parse_cves(download_streams),
     do:
       download_streams
+      |> Enum.reject(&is_error(&1))
       |> Enum.map(&extract_cve_lists(&1))
       |> Enum.concat()
       |> Enum.map(&Parser.parse_cve(&1))
@@ -43,6 +44,9 @@ defmodule CveSync do
       stream
       |> Jaxon.Stream.from_enumerable()
       |> Jaxon.Stream.query([:root, "CVE_Items", :all])
+
+  defp is_error({:error, _filename}), do: true
+  defp is_error(_), do: false
 
   def start(_), do: start()
   def start(), do: Memento.Table.create(CveSync.Db.Cve)
