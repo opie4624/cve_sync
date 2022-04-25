@@ -5,8 +5,8 @@ defmodule CveSync.Downloader do
 
   plug(Tesla.Middleware.BaseUrl, "https://nvd.nist.gov/feeds/json/cve/1.1/")
 
-  def fetch_example() do
-    fetch("nvdcve-1.1-2020.json.gz")
+  def fetch_example(year \\ 2020) do
+    fetch("nvdcve-1.1-#{year}.json.gz")
   end
 
   def fetch(filename) do
