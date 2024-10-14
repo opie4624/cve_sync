@@ -15,19 +15,20 @@ defmodule CveSync.MixProject do
   def application do
     [
       extra_applications: [:logger]
+      # mod: {CveSync, []}
     ]
   end
 
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:memento, "~> 0.3.1"},
-      {:stream_gzip, "~> 0.4.1"},
-      {:jaxon, "~> 2.0.0-alpha"},
-      {:mint, "~> 1.0"},
-      {:castore, "~> 0.1.0"},
-      {:tesla, "~> 1.3"},
-      {:dialyxir, "~> 1.1", only: :dev, runtime: false}
+      {:memento, "~> 0.4"},
+      {:stream_gzip, "~> 0.4"},
+      {:jaxon, "~> 2.0"},
+      {:mint, "~> 1.6"},
+      {:castore, "~> 1.0"},
+      {:tesla, "~> 1.12"},
+      {:dialyxir, "~> 1.4", only: :dev, runtime: false}
     ]
   end
 end
