@@ -25,7 +25,7 @@ config :cve_sync, env: config_env()
 
 config :tesla, adapter: Tesla.Adapter.Mint
 config :tesla, Tesla.Adapter.Mint, body_as: :stream
-config :mnesia, dir: '.mnesia/#{config_env()}/#{node()}'
+config :mnesia, dir: ~c".mnesia/#{config_env()}/#{node()}"
 
 # It is also possible to import configuration files, relative to this
 # directory. For example, you can emulate configuration per environment
