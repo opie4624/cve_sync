@@ -7,7 +7,7 @@ defmodule CveSync.Parser do
       description: get_description(cve["cve"]["description"]["description_data"]),
       last_modified_date: cve["lastModifiedDate"],
       published_date: cve["publishedDate"],
-      raw: cve
+      raw: cve["cve"]
     }
   end
 
