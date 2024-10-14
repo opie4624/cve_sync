@@ -4,15 +4,15 @@ defmodule CveSync.Parser do
       id: cve["cve"]["CVE_data_meta"]["ID"],
       assigner: cve["cve"]["CVE_data_meta"]["ASSIGNER"],
       affected: cve["cve"]["affects"]["vendor"]["vendor_data"],
-      # TODO Filter out English language desc
       description: get_description(cve["cve"]["description"]["description_data"]),
       last_modified_date: cve["lastModifiedDate"],
-      published_date: cve["publishedDate"]
+      published_date: cve["publishedDate"],
+      raw: cve
     }
   end
 
-  defp get_description(cve) when is_list(cve) do
-    [%{"lang" => "en", "value" => description} | _tail] = cve
+  defp get_description(descr_data) when is_list(descr_data) do
+    [%{"lang" => "en", "value" => description} | _tail] = descr_data
     description
   end
 
