@@ -1,6 +1,6 @@
 defmodule CveSync.Db.Cve do
   use Memento.Table,
-    attributes: [:id, :assigner, :description, :last_modified_date, :published_date]
+    attributes: [:id, :assigner, :description, :last_modified_date, :published_date, :raw]
 
   alias __MODULE__
 
@@ -38,13 +38,15 @@ defmodule CveSync.Db.Cve do
         assigner: assigner,
         description: description,
         last_modified_date: last_modified_date,
-        published_date: published_date
+        published_date: published_date,
+        raw: cve_raw
       }),
       do: %Cve{
         id: id,
         assigner: assigner,
         description: description,
         last_modified_date: last_modified_date,
-        published_date: published_date
+        published_date: published_date,
+        raw: cve_raw
       }
 end
